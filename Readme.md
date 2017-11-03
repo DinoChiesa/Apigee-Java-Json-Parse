@@ -3,8 +3,9 @@
 This directory contains the Java source code and pom.xml file required to
 compile a pair of simple Java callouts for Apigee Edge, that do Json Deserialization.
 
-There was some discussion about whether the [FasterXML Jackson](https://github.com/FasterXML/jackson) and (Google Gson)[https://github.com/google/gson] libraries would work within Java callouts in Apigee Edge.
-This project can be used to test same.
+There was some discussion about whether the [FasterXML Jackson](https://github.com/FasterXML/jackson)
+and [Google Gson](https://github.com/google/gson) libraries would work within Java callouts in Apigee
+Edge. This project can be used to test same.
 
 
 ## Usage Notes
@@ -53,7 +54,7 @@ gson_output or jackson_output, depending on the class used.
 ## Example Bundle
 
 You can find a working [example API Proxy bundle](./bundle) in this repo.
-To deploy it you can use something like [importAndDeploy.js](https://github.com/DinoChiesa/apigee-edge-js/blob/master/examples/importAndDeploy.js), or your own favorite import-and-deploy tool. 
+To import it and deploy it into an Apigee Edge organization, you can use something like [importAndDeploy.js](https://github.com/DinoChiesa/apigee-edge-js/blob/master/examples/importAndDeploy.js), or your own favorite import-and-deploy tool. 
 
 
 ## Building
