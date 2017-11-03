@@ -1,0 +1,66 @@
+<ProxyEndpoint name='default'>
+  <Description>Proxy to demonstrate Java callouts that deserialize Json</Description>
+  <HTTPProxyConnection>
+    <BasePath>/json-test</BasePath>
+    <Properties/>
+    <VirtualHost>secure</VirtualHost>
+  </HTTPProxyConnection>
+
+  <FaultRules/>
+
+  <PreFlow name="PreFlow">
+      <Request/>
+      <Response>
+      </Response>
+  </PreFlow>
+
+  <PostFlow name="PostFlow">
+      <Request/>
+      <Response>
+      </Response>
+  </PostFlow>
+
+  <Flows>
+    <Flow name='test1'>
+      <Description>deser json via Jackson and return a response</Description>
+      <Request>
+        <Step><Name>AM-JsonPayload</Name></Step>
+        <Step><Name>Java-DeserViaJackson</Name></Step>
+      </Request>
+      <Response>
+        <Step><Name>AM-Response</Name></Step>
+      </Response>
+      <Condition>(proxy.pathsuffix ~ "/t1") and (request.verb = "GET")</Condition>
+    </Flow>
+
+    <Flow name='test2'>
+      <Description>deser json via Gson and return a response</Description>
+      <Request>
+        <Step><Name>AM-JsonPayload</Name></Step>
+        <Step><Name>Java-DeserViaGson</Name></Step>
+      </Request>
+      <Response>
+        <Step><Name>AM-Response</Name></Step>
+      </Response>
+      <Condition>(proxy.pathsuffix ~ "/t2") and (request.verb = "GET")</Condition>
+    </Flow>
+
+    <Flow name='unknown'>
+      <!--
+           applies as a "default" flow, in case none of the conditions
+           for the above flows evaluated to true.
+      -->
+      <Description>Unknown request</Description>
+      <Request>
+        <Step><Name>RF-UnknownRequest</Name></Step>
+      </Request>
+      <Response/>
+    </Flow>
+
+  </Flows>
+
+  <RouteRule name='LoopbackRoute'>
+    <!-- no target! no backend call -->
+  </RouteRule>
+
+</ProxyEndpoint>

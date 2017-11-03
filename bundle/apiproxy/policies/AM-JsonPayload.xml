@@ -1,0 +1,77 @@
+<AssignMessage name='AM-JsonPayload'>
+  <AssignTo createNew="true" type="request">newRequest</AssignTo>
+  <Set>
+    <Payload contentType='application/json'>{
+  "action" : "get",
+  "application" : "66c4578d-9b80-11e4-8446-0ee0482e1c18",
+  "params" : { },
+  "path" : "/employees",
+  "uri" : "https://amer-apibaas-prod.apigee.net/appservices/amer-demo2/sandbox/employees",
+  "entities" : [ {
+    "uuid" : "07d42f86-a7a8-11e7-8d10-12e294ef809b",
+    "type" : "employee",
+    "created" : 1506972578578,
+    "modified" : 1506972578578,
+    "firstName" : "Diana",
+    "id" : 4,
+    "lastName" : "Ross",
+    "metadata" : {
+      "path" : "/employees/07d42f86-a7a8-11e7-8d10-12e294ef809b",
+      "size" : 392
+    },
+    "phone" : "917-555-1212"
+  }, {
+    "uuid" : "c7fbbb9f-a7a7-11e7-8d10-12e294ef809b",
+    "type" : "employee",
+    "created" : 1506972471463,
+    "modified" : 1506972471463,
+    "firstName" : "Josey",
+    "id" : 3,
+    "lastName" : "Wales",
+    "metadata" : {
+      "path" : "/employees/c7fbbb9f-a7a7-11e7-8d10-12e294ef809b",
+      "size" : 393
+    },
+    "phone" : "212-555-1212"
+  }, {
+    "uuid" : "9781548c-a7a4-11e7-8d10-12e294ef809b",
+    "type" : "employee",
+    "name" : "jallen",
+    "created" : 1506971101640,
+    "modified" : 1506971439912,
+    "firstName" : "Jamie",
+    "givenName" : "Jamie",
+    "id" : 2,
+    "lastName" : "Allen",
+    "metadata" : {
+      "path" : "/employees/9781548c-a7a4-11e7-8d10-12e294ef809b",
+      "size" : 613
+    },
+    "phone" : "917-412-6767",
+    "surname" : "Allen"
+  }, {
+    "uuid" : "2965a8ec-a7a5-11e7-8d10-12e294ef809b",
+    "type" : "employee",
+    "name" : "dchiesa",
+    "created" : 1506971346406,
+    "modified" : 1506971346406,
+    "firstName" : "Dino",
+    "id" : 1,
+    "lastName" : "Chiesa",
+    "metadata" : {
+      "path" : "/employees/2965a8ec-a7a5-11e7-8d10-12e294ef809b",
+      "size" : 410
+    },
+    "phone" : "202-555-1212"
+  } ],
+  "timestamp" : 1509732165677,
+  "duration" : 48,
+  "organization" : "amer-demo2",
+  "applicationName" : "sandbox",
+  "count" : 4
+}
+
+</Payload>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</AssignMessage>

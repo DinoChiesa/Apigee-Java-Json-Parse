@@ -1,0 +1,17 @@
+<AssignMessage name='AM-Response'>
+  <Remove>
+    <Headers/>
+  </Remove>
+  <Set>
+    <Payload contentType='application/json'>{
+  "message" : "ok",
+  "system.uuid" : "{system.uuid}",
+  "messageid" : "{messageid}",
+  "now" : "{system.time}"
+}
+</Payload>
+    <StatusCode>200</StatusCode>
+    <ReasonPhrase>OK</ReasonPhrase>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</AssignMessage>

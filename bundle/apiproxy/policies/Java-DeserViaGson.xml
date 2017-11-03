@@ -1,0 +1,7 @@
+<JavaCallout name='Java-DeserViaGson'>
+  <Properties>
+    <Property name="payload">{newRequest.content}</Property>
+  </Properties>
+  <ClassName>com.dinochiesa.edgecallouts.GsonTest</ClassName>
+  <ResourceURL>java://edge-java-callout-json-test-1.0.1.jar</ResourceURL>
+</JavaCallout>
