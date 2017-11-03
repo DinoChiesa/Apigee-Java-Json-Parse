@@ -134,5 +134,30 @@ public class TestCallout {
 
         System.out.println("=========================================================");
     }
+    
+    @Test
+    public void test_JacksonDeserialize_NonJsonPayload() throws Exception {
+        msgCtxt.setVariable("json-source", "this is not {valid: json}");
+
+        Map<String,String> props = new HashMap<String,String>();
+        props.put("payload","{json-source}");
+        JacksonTest callout = new JacksonTest(props);
+        ExecutionResult actualResult = callout.execute(msgCtxt, exeCtxt);
+        Assert.assertEquals(actualResult, ExecutionResult.ABORT, "result not as expected");
+        String errorOutput = (String) msgCtxt.getVariable("jackson_error");
+        Assert.assertNotNull(errorOutput, "errorOutput");
+        Assert.assertTrue(errorOutput.startsWith("Unrecognized token 'this':"), "errorOutput");
+    }
+    
+    @Test
+    public void test_JacksonDeserialize_NoPayload() throws Exception {
+        Map<String,String> props = new HashMap<String,String>();
+        JacksonTest callout = new JacksonTest(props);
+        ExecutionResult actualResult = callout.execute(msgCtxt, exeCtxt);
+        Assert.assertEquals(actualResult, ExecutionResult.ABORT, "result not as expected");
+        String errorOutput = (String) msgCtxt.getVariable("jackson_error");
+        Assert.assertNotNull(errorOutput, "errorOutput");
+        Assert.assertEquals(errorOutput,"payload resolves to an empty string.", "errorOutput");
+    }
 
 }
