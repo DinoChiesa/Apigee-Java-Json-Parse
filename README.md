@@ -1,12 +1,15 @@
-# Java Json test
+# Apigee Edge - Java Json test
 
-This directory contains the Java source code and pom.xml file required to
-compile a pair of simple Java callouts for Apigee Edge, that do Json Deserialization.
+This directory contains the Java source code and pom.xml file required to compile a pair
+of simple Java callouts for Apigee Edge, that do Json Deserialization.
 
 There was some discussion about whether the [FasterXML Jackson](https://github.com/FasterXML/jackson)
 and [Google Gson](https://github.com/google/gson) libraries would work within Java callouts in Apigee
-Edge. This project can be used to test same.
+Edge. This project can be used to test and demonstrate same.
 
+In short - it works if you serialize and deserialize Maps. It does not work to
+deserialize custom POJOs. The latter requires reflection which is disallowed in Apigee
+Edge callouts.
 
 ## Usage Notes
 
@@ -53,8 +56,10 @@ gson_output or jackson_output, depending on the class used.
 
 ## Example Bundle
 
-You can find a working [example API Proxy bundle](./bundle) in this repo.
-To import it and deploy it into an Apigee Edge organization, you can use something like [importAndDeploy.js](https://github.com/DinoChiesa/apigee-edge-js/blob/master/examples/importAndDeploy.js), or your own favorite import-and-deploy tool. 
+You can find a working [example API Proxy bundle](./bundle) in this repo.  To import it
+and deploy it into an Apigee Edge organization, you can use something like
+[importAndDeploy.js](https://github.com/DinoChiesa/apigee-edge-js/blob/master/examples/importAndDeploy.js),
+or your own favorite import-and-deploy tool.
 
 
 ## Building
@@ -74,7 +79,7 @@ mvn clean test
 
 ## LICENSE
 
-This material is copyright 2017 Google Inc.
+This material is copyright 2017 Google LLC.
 and is licensed under the Apache 2.0 license. See the [LICENSE](LICENSE) file.
 
 
