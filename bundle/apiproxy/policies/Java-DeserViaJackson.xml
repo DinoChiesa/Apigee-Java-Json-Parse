@@ -2,6 +2,6 @@
   <Properties>
     <Property name="payload">{newRequest.content}</Property>
   </Properties>
-  <ClassName>com.dinochiesa.edgecallouts.JacksonTest</ClassName>
-  <ResourceURL>java://edge-java-callout-json-test-1.0.1.jar</ResourceURL>
+  <ClassName>com.google.apigee.edgecallouts.JacksonTest</ClassName>
+  <ResourceURL>java://edge-java-callout-json-test-20191021.jar</ResourceURL>
 </JavaCallout>

@@ -22,6 +22,9 @@
 
   <Flows>
     <Flow name='test1'>
+      <!--
+          curl -i https://${ORG}-${ENV}.apigee.net/json-test/jackson
+       -->
       <Description>deser json via Jackson and return a response</Description>
       <Request>
         <Step><Name>AM-JsonPayload</Name></Step>
@@ -30,11 +33,14 @@
       <Response>
         <Step><Name>AM-Response</Name></Step>
       </Response>
-      <Condition>(proxy.pathsuffix ~ "/t1") and (request.verb = "GET")</Condition>
+      <Condition>(proxy.pathsuffix ~ "/jackson") and (request.verb = "GET")</Condition>
     </Flow>
 
     <Flow name='test2'>
-      <Description>deser json via Gson and return a response</Description>
+      <!--
+          curl -i https://${ORG}-${ENV}.apigee.net/json-test/gson
+      -->
+     <Description>deser json via Gson and return a response</Description>
       <Request>
         <Step><Name>AM-JsonPayload</Name></Step>
         <Step><Name>Java-DeserViaGson</Name></Step>
@@ -42,7 +48,22 @@
       <Response>
         <Step><Name>AM-Response</Name></Step>
       </Response>
-      <Condition>(proxy.pathsuffix ~ "/t2") and (request.verb = "GET")</Condition>
+      <Condition>(proxy.pathsuffix ~ "/gson") and (request.verb = "GET")</Condition>
+    </Flow>
+
+    <Flow name='test3'>
+      <!--
+          curl -i https://${ORG}-${ENV}.apigee.net/json-test/javax
+      -->
+     <Description>deser json via Javax and return a response</Description>
+      <Request>
+        <Step><Name>AM-JsonPayload</Name></Step>
+        <Step><Name>Java-DeserViaJavax</Name></Step>
+      </Request>
+      <Response>
+        <Step><Name>AM-Response</Name></Step>
+      </Response>
+      <Condition>(proxy.pathsuffix ~ "/javax") and (request.verb = "GET")</Condition>
     </Flow>
 
     <Flow name='unknown'>

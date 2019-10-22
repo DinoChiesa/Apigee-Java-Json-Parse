@@ -1,7 +1,7 @@
-<JavaCallout name='Java-DeserViaGson'>
+<JavaCallout name='Java-DeserViaJavax'>
   <Properties>
     <Property name="payload">{newRequest.content}</Property>
   </Properties>
-  <ClassName>com.google.apigee.edgecallouts.GsonTest</ClassName>
+  <ClassName>com.google.apigee.edgecallouts.JavaxTest</ClassName>
   <ResourceURL>java://edge-java-callout-json-test-20191021.jar</ResourceURL>
 </JavaCallout>

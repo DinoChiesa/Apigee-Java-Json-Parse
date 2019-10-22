@@ -11,11 +11,29 @@ In short - it works if you serialize and deserialize Maps. It does not work to
 deserialize custom POJOs. The latter requires reflection which is disallowed in Apigee
 Edge callouts.
 
+## Status
+
+This is an example.
+
+## Disclaimer
+
+This example is not an official Google product, nor is it part of an official Google product.
+
 ## Usage Notes
 
-There are two callout classes, com.dinochiesa.edgecallouts.{JacksonTest, GsonTest} .
+There are three callout classes:
+* com.google.apigee.edgecallouts.GsonTest
+* com.google.apigee.edgecallouts.JacksonTest
+* com.google.apigee.edgecallouts.JavaxTest
 
-To use them, you can configure policies like this:
+Each uses a different de-serializer to produce a Map<String,Object> from a JSON.
+
+In my tests, both the Gson and Jackson libraries use reflection, which is
+not permitted in Apigee.  The Javax version does not use reflection, and
+works in Apigee.
+
+
+To test them, you can configure policies like this:
 
 Gson:
 
@@ -24,8 +42,8 @@ Gson:
   <Properties>
     <Property name="payload">{newRequest.content}</Property>
   </Properties>
-  <ClassName>com.dinochiesa.edgecallouts.GsonTest</ClassName>
-  <ResourceURL>java://edge-java-callout-json-test-1.0.1.jar</ResourceURL>
+  <ClassName>com.google.apigee.edgecallouts.GsonTest</ClassName>
+  <ResourceURL>java://edge-java-callout-json-test-20191021.jar</ResourceURL>
 </JavaCallout>
 ```
 
@@ -36,10 +54,23 @@ Jackson:
   <Properties>
     <Property name="payload">{newRequest.content}</Property>
   </Properties>
-  <ClassName>com.dinochiesa.edgecallouts.JacksonTest</ClassName>
-  <ResourceURL>java://edge-java-callout-json-test-1.0.1.jar</ResourceURL>
+  <ClassName>com.google.apigee.edgecallouts.JacksonTest</ClassName>
+  <ResourceURL>java://edge-java-callout-json-test-20191021.jar</ResourceURL>
 </JavaCallout>
 ```
+
+Javax:
+
+```xml
+<JavaCallout name='Java-DeserViaGson'>
+  <Properties>
+    <Property name="payload">{newRequest.content}</Property>
+  </Properties>
+  <ClassName>com.google.apigee.edgecallouts.JavaxTest</ClassName>
+  <ResourceURL>java://edge-java-callout-json-test-20191021.jar</ResourceURL>
+</JavaCallout>
+```
+
 
 Notice the ClassName is the only thing that changes in the above.
 
@@ -61,17 +92,33 @@ and deploy it into an Apigee Edge organization, you can use something like
 [importAndDeploy.js](https://github.com/DinoChiesa/apigee-edge-js/blob/master/examples/importAndDeploy.js),
 or your own favorite import-and-deploy tool.
 
+## Invoking it
+
+After you deploy the bundle, you can invoke it like this:
+
+```
+ORG=myorg
+ENV=myenv
+
+curl -i https://${ORG}-${ENV}.apigee.net/json-test/jackson
+
+curl -i https://${ORG}-${ENV}.apigee.net/json-test/gson
+
+curl -i https://${ORG}-${ENV}.apigee.net/json-test/javax
+
+```
+
 
 ## Building
 
-You don't need to build the JARs in order to test or use them. But if you decide to change the code, then you will need to rebuild.
+You don't need to build the JAR in order to use it. But if you decide to change the code, then you will need to rebuild.
 
 To do so, use maven:
 ```
 mvn clean package
 ```
 
-You can also run the tests:
+You can also just run the tests:
 ```
 mvn clean test
 ```
@@ -79,7 +126,7 @@ mvn clean test
 
 ## LICENSE
 
-This material is copyright 2017 Google LLC.
+This material is Copyright 2017-2019 Google LLC.
 and is licensed under the Apache 2.0 license. See the [LICENSE](LICENSE) file.
 
 

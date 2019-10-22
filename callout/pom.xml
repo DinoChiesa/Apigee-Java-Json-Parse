@@ -5,13 +5,16 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.apigee.callout</groupId>
   <artifactId>edge-java-callout-json-test</artifactId>
-  <version>1.0.1</version>
+  <version>20191021</version>
   <name>EdgeJavaCalloutJsonTest</name>
   <url>http://maven.apache.org</url>
   <packaging>jar</packaging>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <jackson.version>2.9.8</jackson.version>
+    <gson.version>2.8.6</gson.version>
+    <javaxjson.version>1.1.4</javaxjson.version>
     <java.version>1.8</java.version>
     <apiproxy.java.rsrc.dir>../bundle/apiproxy/resources/java</apiproxy.java.rsrc.dir>
     <testng.version>6.8.7</testng.version> <!-- current: 6.9.4 -->
@@ -19,14 +22,7 @@
   </properties>
 
   <dependencies>
-<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-<dependency>
-    <groupId>org.apache.commons</groupId>
-    <artifactId>commons-lang3</artifactId>
-    <version>3.6</version>
-</dependency>
 <!--
-
 The following 2 jar dependencies from Apigee are not avaiable in any
 public repo. You can install them in your machine-local repo (The .m2
 cache) to get this pom.xml to build successfully.
@@ -52,18 +48,33 @@ do it manually by running these commands:
    -DgeneratePom=true
 -->
 
+<!-- https://mvnrepository.com/artifact/javax.json/javax.json-api -->
+<dependency>
+    <groupId>javax.json</groupId>
+    <artifactId>javax.json-api</artifactId>
+    <version>${javaxjson.version}</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.glassfish/javax.json -->
+<dependency>
+    <groupId>org.glassfish</groupId>
+    <artifactId>javax.json</artifactId>
+    <version>${javaxjson.version}</version>
+</dependency>
+
+
 <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 <dependency>
     <groupId>com.fasterxml.jackson.core</groupId>
     <artifactId>jackson-databind</artifactId>
-    <version>2.9.2</version>
+    <version>${jackson.version}</version>
 </dependency>
 
 <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
 <dependency>
     <groupId>com.google.code.gson</groupId>
     <artifactId>gson</artifactId>
-    <version>2.8.2</version>
+    <version>${gson.version}</version>
 </dependency>
 
     <dependency>
@@ -83,11 +94,11 @@ do it manually by running these commands:
       <version>${testng.version}</version>
       <scope>test</scope>
     </dependency>
-    
+
     <dependency>
       <groupId>com.googlecode.jmockit</groupId>
       <artifactId>jmockit</artifactId>
-      <version>1.7</version>
+      <version>${jmockit.version}</version>
       <scope>test</scope>
     </dependency>
 
@@ -108,6 +119,7 @@ do it manually by running these commands:
             </goals>
             <configuration>
               <outputDirectory>${project.build.directory}/lib</outputDirectory>
+              <includeScope>compile</includeScope>
               <overWriteReleases>false</overWriteReleases>
               <overWriteSnapshots>false</overWriteSnapshots>
               <overWriteIfNewer>true</overWriteIfNewer>
@@ -119,7 +131,7 @@ do it manually by running these commands:
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.3.2</version>
+        <version>3.8.0</version>
         <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
@@ -129,23 +141,13 @@ do it manually by running these commands:
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>2.6</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-
+        <version>3.1.1</version>
         <configuration>
           <archive>
             <!-- do not include the pom.xml file in the generated jar -->
             <addMavenDescriptor>false</addMavenDescriptor>
           </archive>
         </configuration>
-
       </plugin>
 
       <plugin>
@@ -157,15 +159,12 @@ do it manually by running these commands:
               <tasks>
                 <copy todir="${apiproxy.java.rsrc.dir}">
                   <fileset dir="${project.build.directory}">
-                    <include name="${project.artifactId}-${project.version}.jar"/>
+                    <include name="${project.build.finalName}.jar"/>
                     <!-- copy any required dependencies tht are not
                     already included in the Edge runtime: -->
-
-                    <include name='lib/gson-2.8.2.jar'/>
-                    <include name="lib/jackson-databind-2.9.2.jar"/>
-                    <include name="lib/jackson-core-2.9.2.jar"/>
-                    <include name="lib/jackson-annotations-2.9.0.jar"/>
-                    <include name="lib/commons-lang3-3.6.jar"/>
+                    <include name="lib/*.jar"/>
+                    <exclude name="lib/message-flow-1.0.0.jar"/>
+                    <exclude name="lib/expressions-1.0.0.jar"/>
                     <!--                    -->
 
                   </fileset>
@@ -179,6 +178,43 @@ do it manually by running these commands:
           </execution>
         </executions>
       </plugin>
+
+     <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.0.0-M2</version>
+        <executions>
+          <execution>
+            <id>enforce-maven</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>3.0.5</version>
+                </requireMavenVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>2.7</version>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <goals>
+              <goal>display-dependency-updates</goal>
+              <goal>display-plugin-updates</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
 
     </plugins>
   </build>
