@@ -3,13 +3,16 @@
 This directory contains the Java source code and pom.xml file required to compile a pair
 of simple Java callouts for Apigee Edge, that do Json Deserialization.
 
-There was some discussion about whether the [FasterXML Jackson](https://github.com/FasterXML/jackson)
+On the Apigee community, there was some discussion about whether the [FasterXML Jackson](https://github.com/FasterXML/jackson)
 and [Google Gson](https://github.com/google/gson) libraries would work within Java callouts in Apigee
-Edge. This project can be used to test and demonstrate same.
+Edge. This project can be used to test those libraries.
 
-In short - it works if you serialize and deserialize Maps. It does not work to
-deserialize custom POJOs. The latter requires reflection which is disallowed in Apigee
-Edge callouts.
+In short - both of those libraries used to work, but now (October 2019) neither does.
+You can use the javax.json libraries if you serialize and deserialize Maps. It does not work to
+deserialize custom POJOs.
+
+Any use of reflection is disallowed in Apigee
+Edge callouts. Both the Gson and Jackson libraries use reflection.
 
 ## Status
 
@@ -28,9 +31,9 @@ There are three callout classes:
 
 Each uses a different de-serializer to produce a Map<String,Object> from a JSON.
 
-In my tests, both the Gson and Jackson libraries use reflection, which is
-not permitted in Apigee.  The Javax version does not use reflection, and
-works in Apigee.
+In my tests, both the Gson and Jackson libraries use reflection, which is not
+permitted in Apigee. This leads to a runtime error.  The Javax version does not
+use reflection, and works in Apigee.
 
 
 To test them, you can configure policies like this:
