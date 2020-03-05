@@ -12,8 +12,8 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <jackson.version>2.9.10</jackson.version>
     <gson.version>2.8.6</gson.version>
+    <jackson.version>[2.9.10.3,)</jackson.version>
     <javaxjson.version>1.1.4</javaxjson.version>
     <java.version>1.8</java.version>
     <apiproxy.java.rsrc.dir>../bundle/apiproxy/resources/java</apiproxy.java.rsrc.dir>
@@ -22,60 +22,60 @@
   </properties>
 
   <dependencies>
-<!--
-The following 2 jar dependencies from Apigee are not avaiable in any
-public repo. You can install them in your machine-local repo (The .m2
-cache) to get this pom.xml to build successfully.
+    <!--
+        The following 2 jar dependencies from Apigee are not avaiable in any
+        public repo. You can install them in your machine-local repo (The .m2
+        cache) to get this pom.xml to build successfully.
 
 Run the  buildsetup.sh script to do this, or
 
 do it manually by running these commands:
 
-  mvn install:install-file \
-   -Dfile=/Path/To/expressions-1.0.0.jar \
-   -DgroupId=com.apigee.edge \
-   -DartifactId=expressions \
-   -Dversion=1.0.0 \
-   -Dpackaging=jar \
-   -DgeneratePom=true
+mvn install:install-file \
+-Dfile=/Path/To/expressions-1.0.0.jar \
+-DgroupId=com.apigee.edge \
+-DartifactId=expressions \
+-Dversion=1.0.0 \
+-Dpackaging=jar \
+-DgeneratePom=true
 
-  mvn install:install-file \
-   -Dfile=/Path/To/message-flow-1.0.0.jar \
-   -DgroupId=com.apigee.edge \
-   -DartifactId=message-flow \
-   -Dversion=1.0.0 \
-   -Dpackaging=jar \
-   -DgeneratePom=true
--->
+mvn install:install-file \
+-Dfile=/Path/To/message-flow-1.0.0.jar \
+-DgroupId=com.apigee.edge \
+-DartifactId=message-flow \
+-Dversion=1.0.0 \
+-Dpackaging=jar \
+-DgeneratePom=true
+    -->
 
-<!-- https://mvnrepository.com/artifact/javax.json/javax.json-api -->
-<dependency>
-    <groupId>javax.json</groupId>
-    <artifactId>javax.json-api</artifactId>
-    <version>${javaxjson.version}</version>
-</dependency>
+    <!-- https://mvnrepository.com/artifact/javax.json/javax.json-api -->
+    <dependency>
+      <groupId>javax.json</groupId>
+      <artifactId>javax.json-api</artifactId>
+      <version>${javaxjson.version}</version>
+    </dependency>
 
-<!-- https://mvnrepository.com/artifact/org.glassfish/javax.json -->
-<dependency>
-    <groupId>org.glassfish</groupId>
-    <artifactId>javax.json</artifactId>
-    <version>${javaxjson.version}</version>
-</dependency>
+    <!-- https://mvnrepository.com/artifact/org.glassfish/javax.json -->
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>javax.json</artifactId>
+      <version>${javaxjson.version}</version>
+    </dependency>
 
 
-<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-<dependency>
-    <groupId>com.fasterxml.jackson.core</groupId>
-    <artifactId>jackson-databind</artifactId>
-    <version>${jackson.version}</version>
-</dependency>
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
 
-<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-<dependency>
-    <groupId>com.google.code.gson</groupId>
-    <artifactId>gson</artifactId>
-    <version>${gson.version}</version>
-</dependency>
+    <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>${gson.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>com.apigee.edge</groupId>
@@ -161,7 +161,7 @@ do it manually by running these commands:
                   <fileset dir="${project.build.directory}">
                     <include name="${project.build.finalName}.jar"/>
                     <!-- copy any required dependencies tht are not
-                    already included in the Edge runtime: -->
+                         already included in the Edge runtime: -->
                     <include name="lib/*.jar"/>
                     <exclude name="lib/message-flow-1.0.0.jar"/>
                     <exclude name="lib/expressions-1.0.0.jar"/>
@@ -179,7 +179,7 @@ do it manually by running these commands:
         </executions>
       </plugin>
 
-     <plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
         <version>3.0.0-M2</version>
@@ -200,7 +200,7 @@ do it manually by running these commands:
         </executions>
       </plugin>
 
-       <plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
         <version>2.7</version>
