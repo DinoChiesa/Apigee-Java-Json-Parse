@@ -1,14 +1,17 @@
-# Apigee Edge - Java Json test
+# Apigee - Java Json test
 
 This directory contains the Java source code and pom.xml file required to compile a pair
-of simple Java callouts for Apigee Edge, that do Json Deserialization.
+of simple Java callouts for Apigee, that do Json Deserialization.
 
 On the Apigee community, there was some discussion about whether the [FasterXML Jackson](https://github.com/FasterXML/jackson)
 and [Google Gson](https://github.com/google/gson) libraries would work within Java callouts in Apigee
 Edge. This project can be used to test those libraries.
 
 In short - both of those libraries used to work, but now (October 2019) neither does.
-You can use the javax.json libraries if you serialize and deserialize Maps. It does not work to
+You can use the javax.json libraries if you serialize and deserialize Maps. Follow the example in
+[JavaxTest.java](./callout/src/main/java/com/google/apigee/callouts/JavaxTest.java).
+
+It does not work to
 deserialize custom POJOs.
 
 Any use of reflection is disallowed in Apigee
@@ -25,9 +28,9 @@ This example is not an official Google product, nor is it part of an official Go
 ## Usage Notes
 
 There are three callout classes:
-* com.google.apigee.edgecallouts.GsonTest
-* com.google.apigee.edgecallouts.JacksonTest
-* com.google.apigee.edgecallouts.JavaxTest
+* com.google.apigee.callouts.GsonTest
+* com.google.apigee.callouts.JacksonTest
+* com.google.apigee.callouts.JavaxTest
 
 Each uses a different de-serializer to produce a Map<String,Object> from a JSON.
 
@@ -45,7 +48,7 @@ Gson:
   <Properties>
     <Property name="payload">{newRequest.content}</Property>
   </Properties>
-  <ClassName>com.google.apigee.edgecallouts.GsonTest</ClassName>
+  <ClassName>com.google.apigee.callouts.GsonTest</ClassName>
   <ResourceURL>java://edge-java-callout-json-test-20191021.jar</ResourceURL>
 </JavaCallout>
 ```
@@ -57,7 +60,7 @@ Jackson:
   <Properties>
     <Property name="payload">{newRequest.content}</Property>
   </Properties>
-  <ClassName>com.google.apigee.edgecallouts.JacksonTest</ClassName>
+  <ClassName>com.google.apigee.callouts.JacksonTest</ClassName>
   <ResourceURL>java://edge-java-callout-json-test-20191021.jar</ResourceURL>
 </JavaCallout>
 ```
@@ -69,7 +72,7 @@ Javax:
   <Properties>
     <Property name="payload">{newRequest.content}</Property>
   </Properties>
-  <ClassName>com.google.apigee.edgecallouts.JavaxTest</ClassName>
+  <ClassName>com.google.apigee.callouts.JavaxTest</ClassName>
   <ResourceURL>java://edge-java-callout-json-test-20191021.jar</ResourceURL>
 </JavaCallout>
 ```

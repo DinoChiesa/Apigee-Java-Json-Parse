@@ -63,7 +63,7 @@ public class JavaxJson {
     } else if (jsonValue instanceof JsonArray) {
       return decodeArray((JsonArray) jsonValue, java.util.ArrayList.class);
     } else if (jsonValue instanceof JsonObject) {
-      return decodeObject((JsonObject) jsonValue, java.lang.Object.class);
+      return decodeObject((JsonObject) jsonValue, java.util.Map.class);
     } else {
       throw new UnsupportedOperationException("Unsupported json value: " + jsonValue);
     }

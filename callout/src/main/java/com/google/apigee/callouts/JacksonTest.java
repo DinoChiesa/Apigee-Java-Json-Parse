@@ -1,30 +1,29 @@
-// GsonTest.java
+// JacksonTest.java
 //
 // This is the source code for a Java callout for Apigee Edge.
-// This callout is very simple - it just deserializes a payload using Google's Gson library.
+// This callout is very simple - it just deserializes a payload using FastXML Jackson.
 //
 // ------------------------------------------------------------------
 
-package com.google.apigee.edgecallouts;
+package com.google.apigee.callouts;
 
 import com.apigee.flow.execution.ExecutionContext;
 import com.apigee.flow.execution.ExecutionResult;
 import com.apigee.flow.execution.spi.Execution;
 import com.apigee.flow.message.MessageContext;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GsonTest extends AbstractCallout implements Execution {
+public class JacksonTest extends AbstractCallout implements Execution {
   static {
-    varprefix = "gson_";
+    varprefix = "jackson_";
   }
 
-  private static final Gson gson = new Gson();
+  private static final ObjectMapper om = new ObjectMapper();
 
-  public GsonTest(Map properties) {
+  public JacksonTest(Map properties) {
     this.properties = properties;
   }
 
@@ -32,9 +31,7 @@ public class GsonTest extends AbstractCallout implements Execution {
     try {
       String payload = getSimpleRequiredProperty("payload", msgCtxt);
       StringReader reader = new StringReader(payload);
-      //java.lang.reflect.Type t = new TypeToken<Map<String, Object>>(){}.getType();      
-      //Map<String, Object> map = gson.fromJson(reader, t);
-      Map<String, Object> map = gson.fromJson(reader, Map.class);
+      Map<String, Object> map = om.readValue(reader, HashMap.class);
       msgCtxt.setVariable(varName("output"), map);
       return ExecutionResult.SUCCESS;
     } catch (java.lang.Exception exc1) {

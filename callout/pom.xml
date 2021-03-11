@@ -4,9 +4,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.apigee.callout</groupId>
-  <artifactId>edge-java-callout-json-test</artifactId>
-  <version>20191021</version>
-  <name>EdgeJavaCalloutJsonTest</name>
+  <artifactId>apigee-java-callout-json-test</artifactId>
+  <version>20210311</version>
+  <name>ApigeeJavaCalloutJsonTest</name>
   <url>http://maven.apache.org</url>
   <packaging>jar</packaging>
   <properties>

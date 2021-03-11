@@ -1,42 +1,41 @@
-// JacksonTest.java
+// JavaxTest.java
 //
 // This is the source code for a Java callout for Apigee Edge.
-// This callout is very simple - it just deserializes a payload using FastXML Jackson.
+// This callout is very simple - it just deserializes a payload using the javax.json library.
 //
 // ------------------------------------------------------------------
 
-package com.google.apigee.edgecallouts;
+package com.google.apigee.callouts;
 
+import com.google.apigee.json.JavaxJson;
 import com.apigee.flow.execution.ExecutionContext;
 import com.apigee.flow.execution.ExecutionResult;
 import com.apigee.flow.execution.spi.Execution;
 import com.apigee.flow.message.MessageContext;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JacksonTest extends AbstractCallout implements Execution {
+public class JavaxTest extends AbstractCallout implements Execution {
   static {
-    varprefix = "jackson_";
+    varprefix = "javaxjson_";
   }
 
-  private static final ObjectMapper om = new ObjectMapper();
-
-  public JacksonTest(Map properties) {
+  public JavaxTest(Map properties) {
     this.properties = properties;
   }
 
   public ExecutionResult execute(final MessageContext msgCtxt, final ExecutionContext execContext) {
     try {
       String payload = getSimpleRequiredProperty("payload", msgCtxt);
-      StringReader reader = new StringReader(payload);
-      Map<String, Object> map = om.readValue(reader, HashMap.class);
+      Map<String, Object> map = JavaxJson.fromJson(payload, Map.class);
       msgCtxt.setVariable(varName("output"), map);
       return ExecutionResult.SUCCESS;
     } catch (java.lang.Exception exc1) {
       setExceptionVariables(exc1, msgCtxt);
       msgCtxt.setVariable(varName("stacktrace"), getStackTraceAsString(exc1));
+      System.out.printf("\n** %s\n", getStackTraceAsString(exc1));
+
       return ExecutionResult.ABORT;
     }
   }

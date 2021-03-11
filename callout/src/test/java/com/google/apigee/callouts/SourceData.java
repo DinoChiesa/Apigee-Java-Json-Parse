@@ -1,4 +1,4 @@
-package com.google.apigee.edgecallouts;
+package com.google.apigee.callouts;
 
 public class SourceData {
 
