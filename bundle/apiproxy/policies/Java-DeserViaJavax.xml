@@ -3,5 +3,5 @@
     <Property name="payload">{newRequest.content}</Property>
   </Properties>
   <ClassName>com.google.apigee.callouts.JavaxTest</ClassName>
-  <ResourceURL>java://apigee-java-callout-json-test-20210311.jar</ResourceURL>
+  <ResourceURL>java://apigee-java-callout-json-test-20220606.jar</ResourceURL>
 </JavaCallout>

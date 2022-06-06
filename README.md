@@ -51,7 +51,7 @@ Gson:
     <Property name="payload">{newRequest.content}</Property>
   </Properties>
   <ClassName>com.google.apigee.callouts.GsonTest</ClassName>
-  <ResourceURL>java://apigee-java-callout-json-test-20210311.jar</ResourceURL>
+  <ResourceURL>java://apigee-java-callout-json-test-20220606.jar</ResourceURL>
 </JavaCallout>
 ```
 
@@ -63,7 +63,7 @@ Jackson:
     <Property name="payload">{newRequest.content}</Property>
   </Properties>
   <ClassName>com.google.apigee.callouts.JacksonTest</ClassName>
-  <ResourceURL>java://apigee-java-callout-json-test-20210311.jar</ResourceURL>
+  <ResourceURL>java://apigee-java-callout-json-test-20220606.jar</ResourceURL>
 </JavaCallout>
 ```
 
@@ -75,7 +75,7 @@ Javax:
     <Property name="payload">{newRequest.content}</Property>
   </Properties>
   <ClassName>com.google.apigee.callouts.JavaxTest</ClassName>
-  <ResourceURL>java://apigee-java-callout-json-test-20210311.jar</ResourceURL>
+  <ResourceURL>java://apigee-java-callout-json-test-20220606.jar</ResourceURL>
 </JavaCallout>
 ```
 
@@ -140,7 +140,7 @@ mvn clean test
 
 ## LICENSE
 
-This material is Copyright 2017-2021 Google LLC.
+This material is Copyright 2017-2022 Google LLC.
 and is licensed under the Apache 2.0 license. See the [LICENSE](LICENSE) file.
 
 
